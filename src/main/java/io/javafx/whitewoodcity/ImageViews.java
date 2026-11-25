@@ -1,4 +1,4 @@
-package io.javafx.whitewoodcity.imageviews;
+package io.javafx.whitewoodcity;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

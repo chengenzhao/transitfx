@@ -2,7 +2,7 @@ package io.javafx.whitewoodcity.transition;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.javafx.whitewoodcity.imageviews.ImageViews;
+import io.javafx.whitewoodcity.ImageViews;
 import io.javafx.whitewoodcity.jvg.JVG;
 import javafx.animation.Animation;
 import javafx.animation.Transition;

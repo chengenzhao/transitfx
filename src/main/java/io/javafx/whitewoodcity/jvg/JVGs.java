@@ -2,7 +2,7 @@ package io.javafx.whitewoodcity.jvg;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import io.javafx.whitewoodcity.imageviews.ImageViews;
+import io.javafx.whitewoodcity.ImageViews;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
