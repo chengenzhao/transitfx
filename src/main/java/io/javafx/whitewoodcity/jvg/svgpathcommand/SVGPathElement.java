@@ -1,0 +1,56 @@
+package io.javafx.whitewoodcity.jvg.svgpathcommand;
+
+import javafx.beans.property.SimpleDoubleProperty;
+
+public sealed interface SVGPathElement permits CurveTo, LineTo, MoveTo, QuadraticTo, SmoothTo, TransitTo {
+  String command();
+  SimpleDoubleProperty x();
+  SimpleDoubleProperty y();
+  default double getX(){return this.x().get();}
+  default double getY(){return this.y().get();}
+
+  default SVGPathElement copyCoordinate(){
+    return new MoveTo(getX(), getY());
+  }
+
+  SVGPathElement clone();
+  default void apply(SVGPathElement reference, Apply apply){
+    apply(reference, apply, apply);
+  }
+  default void apply(SVGPathElement reference, Apply applyX, Apply applyY){
+    x().set(applyX.apply(reference.x()));
+    y().set(applyY.apply(reference.y()));
+  }
+  default void apply(SVGPathElement reference, ApplyValue apply){
+    apply(reference, apply, apply);
+  }
+  default void apply(SVGPathElement reference, ApplyValue applyX, ApplyValue applyY){
+    apply(reference, fromApplyValue(applyX), fromApplyValue(applyY));
+  }
+  default void traverse(Traverse traverse){
+    traverse(traverse, traverse);
+  }
+  default void traverse(Traverse traverseX, Traverse traverseY){
+    traverseX.traverse(x());
+    traverseY.traverse(y());
+  }
+
+  static Apply fromApplyValue(ApplyValue applyValue){
+    return property -> applyValue.apply(property.get());
+  }
+
+  @FunctionalInterface
+  interface Apply{
+    double apply(SimpleDoubleProperty property);
+  }
+
+  @FunctionalInterface
+  interface ApplyValue{
+    double apply(double value);
+  }
+
+  @FunctionalInterface
+  interface Traverse{
+    void traverse(SimpleDoubleProperty property);
+  }
+}
