@@ -1,5 +1,5 @@
 ## Maven
-If you are using Maven, add the following dependency to the dependencies section of your project descriptor to access the FX City API:
+If you are using Maven, add the following dependency to the dependencies section of your project descriptor to access the Transit FX API:
 ```xml
 <dependency>
     <groupId>io.github.chengenzhao</groupId>
