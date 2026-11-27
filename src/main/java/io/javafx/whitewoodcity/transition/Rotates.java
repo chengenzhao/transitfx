@@ -29,10 +29,6 @@ public class Rotates extends AbstractTransitions {
     }
   }
 
-  public Node getNode() {
-    return node;
-  }
-
   public void record(String name, String jsonString) {
     record(name, jsonString, 1.0, false);
   }
@@ -116,9 +112,9 @@ public class Rotates extends AbstractTransitions {
     for (int i = 0; i < jsonArray.size() - 1; i++) {
       list.add(new TransitionData((ObjectNode) jsonArray.get(i), (ObjectNode) jsonArray.get(i + 1)));
     }
-    var tran = new SequentialTransition(getNode());
+    var tran = new SequentialTransition(node);
     for (var data : list) {
-      tran.getChildren().add(new CustomTransition(getNode(), data.start(), data.end()));
+      tran.getChildren().add(new CustomTransition(node, data.start(), data.end()));
     }
     return super.record(name, tran);
   }
@@ -150,11 +146,11 @@ public class Rotates extends AbstractTransitions {
         y = json.get(RotateJsonKeys.Y.key()).asDouble();
       }
 
-      if(json.has(RotateJsonKeys.OPACITY.key())){
+      if (json.has(RotateJsonKeys.OPACITY.key())) {
         o = json.get(RotateJsonKeys.OPACITY.key()).asDouble();
       }
 
-      switch (getNode()) {
+      switch (node) {
         case JVG jvg -> jvg.set(x, y).setOpacity(o);
         case ImageView imageView -> {
           imageView.setX(x);
@@ -173,17 +169,17 @@ public class Rotates extends AbstractTransitions {
     }
 
     if (json.has(RotateJsonKeys.TRANSLATE_X.key())) {
-      getNode().setTranslateX(json.get(RotateJsonKeys.TRANSLATE_X.key()).asDouble());
+      node.setTranslateX(json.get(RotateJsonKeys.TRANSLATE_X.key()).asDouble());
     }
 
     if (json.has(RotateJsonKeys.TRANSLATE_Y.key())) {
-      getNode().setTranslateY(json.get(RotateJsonKeys.TRANSLATE_Y.key()).asDouble());
+      node.setTranslateY(json.get(RotateJsonKeys.TRANSLATE_Y.key()).asDouble());
     }
 
     if (json.has(RotateJsonKeys.ROTATES.key())) {
       var rotates = json.withArray(RotateJsonKeys.ROTATES.key());
       List<Rotate> transforms =
-          getNode().getTransforms().stream()
+          node.getTransforms().stream()
               .filter(Rotate.class::isInstance)
               .map(Rotate.class::cast)
               .toList();
@@ -201,7 +197,8 @@ public class Rotates extends AbstractTransitions {
     var pose = poses.get(name);
     if (pose != null)
       show(pose);
-    else throw new RuntimeException("The pose with name:" + name + " doesn't exist~!");
+    else
+      throw new RuntimeException("Node:" + node + " didn't record the pose:" + name + " yet, please record it first!");
   }
 
 }

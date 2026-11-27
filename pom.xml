@@ -6,7 +6,7 @@
 
     <groupId>io.github.chengenzhao</groupId>
     <artifactId>transitfx</artifactId>
-    <version>2.3</version>
+    <version>2.4</version>
     <name>transitfx</name>
 
     <description>A JavaFX transition and easing library, compatible with JVG, ACT and other visual assets.
